@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImplServiceWebService WSDL service -->
+
+  <service name="ImplServiceWeb" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soap.ws.tecgurus.com"/>
+      <parameter name="wsdlServiceElement" value="ImplServiceWebService"/>
+      <parameter name="schemaQualified" value="http://soap.ws.tecgurus.com,http://bean.ws.tecgurus.com"/>
+      <parameter name="wsdlServicePort" value="ImplServiceWeb"/>
+      <parameter name="className" value="com.tecgurus.ws.soap.ImplServiceWeb"/>
+      <parameter name="wsdlPortType" value="ImplServiceWeb"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://soap.ws.tecgurus.com" xmlns:retNS="http://soap.ws.tecgurus.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="crearUsuario" qname="operNS:crearUsuario" returnQName="retNS:crearUsuarioReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.ws.tecgurus.com" xmlns:tns="http://bean.ws.tecgurus.com" qname="pns:usuario" type="tns:Usuario"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.ws.tecgurus.com" xmlns:retNS="http://soap.ws.tecgurus.com" xmlns:rtns="http://bean.ws.tecgurus.com" name="buscarUsuario" qname="operNS:buscarUsuario" returnQName="retNS:buscarUsuarioReturn" returnType="rtns:Usuario" soapAction="">
+        <parameter xmlns:pns="http://soap.ws.tecgurus.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:var" type="tns:string"/>
+        <parameter xmlns:pns="http://soap.ws.tecgurus.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:var2" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.ws.tecgurus.com" xmlns:retNS="http://soap.ws.tecgurus.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="actualizarUsuario" qname="operNS:actualizarUsuario" returnQName="retNS:actualizarUsuarioReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.ws.tecgurus.com" xmlns:tns="http://bean.ws.tecgurus.com" qname="pns:usuario" type="tns:Usuario"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.ws.tecgurus.com" xmlns:retNS="http://soap.ws.tecgurus.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="borrarUsuario" qname="operNS:borrarUsuario" returnQName="retNS:borrarUsuarioReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://soap.ws.tecgurus.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="crearUsuario buscarUsuario actualizarUsuario borrarUsuario"/>
+
+      <typeMapping xmlns:ns="http://bean.ws.tecgurus.com" qname="ns:Usuario" type="java:com.tecgurus.ws.bean.Usuario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
